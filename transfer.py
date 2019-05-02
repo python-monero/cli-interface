@@ -5,7 +5,6 @@ import click
 from monero.address import address as monero_address
 from monero.backends.jsonrpc import JSONRPCWallet
 from monero.numbers import from_atomic
-from monero.transaction import IncomingPayment, Transaction
 from monero.wallet import Wallet
 
 import settings
@@ -57,12 +56,22 @@ def transfer(*destinations: Destination):
     return wallet.transfer_multiple([dest.to_tuple() for dest in destinations])
 
 
+def confirm_transfer(*destinations: Destination) -> bool:
+    total = sum(dest.amount for dest in destinations)
+    confirmation_text = f"Sending {total} xmr.\nIs this ok? (y/yes/n/no)"
+    click.echo(confirmation_text)
+    answer = input()
+    return answer.lower() in ["yes", "y"]
+
+
 @click.command()
 @click.argument("args", nargs=-1)
 def main(args):
     right_args_len = len(args) % 2 == 0 and len(args) <= 30 and len(args)
     assert right_args_len, "Invalid number of arguments"
     destinations = list(parse_destinations(*args))
+    if not confirm_transfer(*destinations):
+        return click.echo("Transfer cancelled")
     transfers = transfer(*destinations)
     click.echo(represent_result(transfers))
 
