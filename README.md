@@ -17,8 +17,9 @@ These scripts rely on the following envvars for configuration
 * `RPC_WALLET_PORT`
 * `RPC_WALLET_USER`
 * `RPC_WALLET_PASSWORD`
-* `RPC_WALLET_STAGENET`: defaults to 1
-* `RPC_WALLET_TESTNET`: defaults to 0
+* `RPC_WALLET_STAGENET`: Defaults to 1
+* `RPC_WALLET_TESTNET`: Defaults to 0
+* `RPC_WALLET_REQUESTS_TIMEOUT`: Expressed in seconds. Defaults to 20
 
 ## Examples
 
