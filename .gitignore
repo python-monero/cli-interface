@@ -1,0 +1,5 @@
+.venv
+.autoenv
+.mypy_cache
+.vscode
+*__pycache__*
