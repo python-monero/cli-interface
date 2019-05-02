@@ -6,7 +6,7 @@ from monero.wallet import Wallet
 import settings
 
 
-def get_address():
+def get_unspent_outputs():
     wallet = Wallet(
         JSONRPCWallet(
             host=settings.RPC_WALLET_HOST,
@@ -16,16 +16,23 @@ def get_address():
             timeout=settings.RPC_WALLET_REQUESTS_TIMEOUT,
         )
     )
-    return wallet.address()
+    return wallet.get_unspent_outputs()
 
 
-def represent_simple_address():
-    return f"0 {get_address()} Primary address"
+def represent_outputs():
+    outputs = get_unspent_outputs()
+    outputs.sort(key=lambda elem: elem.atomic_amount)
+
+    total_count = f"Total count: {len(outputs)}"
+
+    smallest = "Min amount found: {:f}".format(outputs[0].amount)
+    largest = "Max amount found: {:f}".format(outputs[-1].amount)
+    return f"{total_count}\n{smallest}\n{largest}"
 
 
 @click.command()
 def main():
-    click.echo(represent_simple_address())
+    click.echo(represent_outputs())
 
 
 if __name__ == "__main__":

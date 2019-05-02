@@ -1,0 +1,2 @@
+click
+git+https://github.com/Domol/monero-python

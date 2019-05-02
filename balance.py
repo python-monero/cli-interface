@@ -13,6 +13,7 @@ def get_balance(details=False):
             port=settings.RPC_WALLET_PORT,
             user=settings.RPC_WALLET_USER,
             password=settings.RPC_WALLET_PASSWORD,
+            timeout=settings.RPC_WALLET_REQUESTS_TIMEOUT,
         )
     )
     return wallet.balances()

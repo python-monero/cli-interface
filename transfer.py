@@ -39,7 +39,7 @@ def parse_destinations(*args) -> Iterable[Destination]:
 
 
 def represent_result(transactions):
-    header = "Transaction successfully submited. Transactions:"
+    header = "Transaction successfully submitted. Transactions:"
     txs_str = "\n".join(tx.hash for tx in transactions)
     return f"{header}\n{txs_str}"
 
@@ -51,6 +51,7 @@ def transfer(*destinations: Destination):
             port=settings.RPC_WALLET_PORT,
             user=settings.RPC_WALLET_USER,
             password=settings.RPC_WALLET_PASSWORD,
+            timeout=settings.RPC_WALLET_REQUESTS_TIMEOUT,
         )
     )
     return wallet.transfer_multiple([dest.to_tuple() for dest in destinations])
