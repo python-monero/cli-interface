@@ -1,13 +1,15 @@
-import click
 from monero.backends.jsonrpc import JSONRPCWallet
 from monero.numbers import from_atomic
 from monero.wallet import Wallet
+from . import settings
 
-import settings
 
-
-def get_address():
-    wallet = Wallet(
+def connect_to_wallet():
+    '''
+    Connects to the wallet RPC interface, with the configuration provided
+    by the settings module.
+    '''
+    return Wallet(
         JSONRPCWallet(
             host=settings.RPC_WALLET_HOST,
             port=settings.RPC_WALLET_PORT,
@@ -16,17 +18,3 @@ def get_address():
             timeout=settings.RPC_WALLET_REQUESTS_TIMEOUT,
         )
     )
-    return wallet.address()
-
-
-def represent_simple_address():
-    return f"0 {get_address()} Primary address"
-
-
-@click.command()
-def main():
-    click.echo(represent_simple_address())
-
-
-if __name__ == "__main__":
-    main()
