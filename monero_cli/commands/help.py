@@ -1,8 +1,8 @@
-COMMAND = 'help'
+COMMAND = "help"
 
 
 def get_help():
-    return '''
+    return """
     Commands: 
         account
             account new <label text with white spaces allowed>
@@ -88,4 +88,4 @@ def get_help():
         version
         viewkey
         wallet_info
-    '''
+    """

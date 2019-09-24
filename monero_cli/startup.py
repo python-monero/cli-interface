@@ -5,10 +5,10 @@ from . import settings
 
 
 def connect_to_wallet():
-    '''
+    """
     Connects to the wallet RPC interface, with the configuration provided
     by the settings module.
-    '''
+    """
     return Wallet(
         JSONRPCWallet(
             host=settings.RPC_WALLET_HOST,

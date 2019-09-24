@@ -3,7 +3,7 @@ from monero.numbers import from_atomic
 from monero.wallet import Wallet
 
 
-COMMAND = 'balance'
+COMMAND = "balance"
 
 
 def get_balance(wallet: Wallet, details=False):
@@ -17,4 +17,3 @@ def get_simple_balance(wallet: Wallet):
 
 def get_detailed_balance():
     raise NotImplementedError()
-

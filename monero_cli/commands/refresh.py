@@ -1,9 +1,9 @@
 from monero.wallet import Wallet
 
 
-COMMAND = 'refresh'
+COMMAND = "refresh"
 
 
 def refresh(wallet: Wallet):
-    print('Starting refresh...')
+    print("Starting refresh...")
     wallet.refresh()

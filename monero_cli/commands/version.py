@@ -2,7 +2,7 @@ from monero.backends.jsonrpc import JSONRPCWallet
 from monero.wallet import Wallet
 
 
-COMMAND = 'version'
+COMMAND = "version"
 
 
 def get_version(wallet: Wallet):

@@ -1,7 +1,7 @@
 import sys
 
 
-COMMAND = 'exit'
+COMMAND = "exit"
 
 
 def exit():

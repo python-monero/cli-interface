@@ -4,7 +4,7 @@ from monero.numbers import from_atomic
 from monero.wallet import Wallet
 
 
-COMMAND = 'address'
+COMMAND = "address"
 
 
 def get_address(wallet: Wallet):
