@@ -33,7 +33,7 @@ def entry_point():
             print(help.get_help())
         elif command == balance.COMMAND:
             print(balance.get_simple_balance(wallet))
-        elif command == transfer.COMMAND:
+        elif command.startswith(transfer.COMMAND):
             print(transfer.transfer(wallet, command))
         elif command == version.COMMAND:
             print(version.get_version(wallet))

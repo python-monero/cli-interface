@@ -4,6 +4,7 @@ import pytest
 from monero_cli.commands.transfer import (
     Destination,
     parse_command,
+    parse_destinations,
     DEFAULT_PRIORITY,
     DEFAULT_RINGSIZE,
 )
@@ -100,3 +101,46 @@ class TestParseCommand:
     def test_invalid(self, cmd):
         with pytest.raises(ValidationError):
             parse_command(cmd)
+
+
+class TestParseDestinations:
+    def test_valid_destinations(self, dummy_address):
+        args = [
+            dummy_address(Network.STAGENET),
+            "2",
+            dummy_address(Network.STAGENET),
+            "7",
+        ]
+        destinations = parse_destinations(args)
+        assert len(destinations) == 2
+
+        dest1, dest2 = destinations
+        assert str(dest1.address) == args[0]
+        assert str(dest1.amount) == args[1]
+        assert str(dest2.address) == args[2]
+        assert str(dest2.amount) == args[3]
+
+    @pytest.mark.parametrize(
+        "args", ([], ["ad1", "am1", "ad2"], ["ad1"], ["ad1", "ad2", "am2"])
+    )
+    def test_invalid_number_of_args(self, args):
+        with pytest.raises(ValidationError):
+            parse_destinations(args)
+
+    def test_invalid_destination_args(self, dummy_address):
+        cases = [
+            (
+                dummy_address(Network.MAINNET),
+                "2",
+                dummy_address(Network.STAGENET),
+                "3",
+            ),
+            ("asd", "2", dummy_address(Network.STAGENET), "1"),
+            (dummy_address(Network.STAGENET), "asd"),
+        ]
+
+        network_conf = "monero_cli.commands.transfer.settings.NETWORK"
+        with mock.patch(network_conf, Network(Network.STAGENET)):
+            for args in cases:
+                with pytest.raises(ValidationError):
+                    parse_destinations(args)

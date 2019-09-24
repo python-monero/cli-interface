@@ -1,9 +1,9 @@
 import os
 
-RPC_WALLET_HOST = os.environ.get("RPC_WALLET_HOST")
-RPC_WALLET_PORT = os.environ.get("RPC_WALLET_PORT")
-RPC_WALLET_USER = os.environ.get("RPC_WALLET_USER")
-RPC_WALLET_PASSWORD = os.environ.get("RPC_WALLET_PASSWORD")
+RPC_WALLET_HOST = os.environ.get("RPC_WALLET_HOST", "localhost")
+RPC_WALLET_PORT = os.environ.get("RPC_WALLET_PORT", 38083)
+RPC_WALLET_USER = os.environ.get("RPC_WALLET_USER", "")
+RPC_WALLET_PASSWORD = os.environ.get("RPC_WALLET_PASSWORD", "")
 
 
 class Network:
